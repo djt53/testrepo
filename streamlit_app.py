@@ -51,12 +51,10 @@ def main():
             # Display additional information with non-clickable thumbs up and thumbs down buttons
             info_fields = ["location", "industry", "last_raise"]
             for field in info_fields:
-                st.write(f"{field.capitalize()}: {company_data[field]}")
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.button("👍", key=f"thumbs_up_{field}", disabled=True)
-                with col2:
-                    st.button("👎", key=f"thumbs_down_{field}", disabled=True)
+                col1, col2, col3 = st.columns([3, 1, 1])
+                col1.write(f"{field.capitalize()}: {company_data[field]}")
+                col2.button("👍", key=f"thumbs_up_{field}", disabled=True)
+                col3.button("👎", key=f"thumbs_down_{field}", disabled=True)
 
             # Save and Pass buttons
             col1, col2 = st.columns(2)
@@ -68,7 +66,7 @@ def main():
                 if st.button("Pass", key="pass_button"):
                     st.session_state.page += 1
         else:
-            st.write("Nice. That's it for today. Check back tomorrow for some fresh deals.")
+            st.write("Nice. That's it for today.")
 
 if __name__ == "__main__":
     main()
