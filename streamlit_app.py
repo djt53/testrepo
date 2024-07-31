@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load data
-df = pd.read_csv('/mnt/data/source.csv')
+df = pd.read_csv('source.csv')
 
 # Define main function
 def main():
