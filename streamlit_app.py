@@ -48,7 +48,7 @@ def main():
             st.header(company_data['company_name'])
             st.write(f"Location: {company_data['location']}")
             st.write(f"Industry: {company_data['industry']}")
-            st.write(f"Funding: {company_data['funding']}")
+            st.write(f"Last Round: {company_data['last_raise']}")
 
             col1, col2 = st.columns(2)
 
