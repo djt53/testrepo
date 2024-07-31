@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load data
-df = pd.read_csv('source.csv')
+df = pd.read_csv('/source.csv')
 
 # Define main function
 def main():
@@ -45,22 +45,30 @@ def main():
         if st.session_state.page <= len(df):
             company_data = df.iloc[st.session_state.page - 1]
 
-            st.header(company_data['company_name'])
-            st.write(f"Location: {company_data['location']}")
-            st.write(f"Industry: {company_data['industry']}")
-            st.write(f"Last Round: {company_data['last_raise']}")
+            # Company Name centered and bold
+            st.markdown(f"<h2 style='text-align: center;'><b>{company_data['company_name']}</b></h2>", unsafe_allow_html=True)
 
+            # Display additional information with non-clickable thumbs up and thumbs down buttons
+            info_fields = ["location", "industry", "last_raise"]
+            for field in info_fields:
+                st.write(f"{field.capitalize()}: {company_data[field]}")
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.button("👍", key=f"thumbs_up_{field}", disabled=True)
+                with col2:
+                    st.button("👎", key=f"thumbs_down_{field}", disabled=True)
+
+            # Save and Pass buttons
             col1, col2 = st.columns(2)
-
             with col1:
-                if st.button("Save", key="save_button", help="Save this option"):
+                if st.button("Save", key="save_button"):
                     st.session_state.page += 1
 
             with col2:
-                if st.button("Pass", key="pass_button", help="Pass this option"):
+                if st.button("Pass", key="pass_button"):
                     st.session_state.page += 1
         else:
-            st.write("You've reached the end of the list.")
+            st.write("Nice. That's it for today. Check back tomorrow for some fresh deals.")
 
 if __name__ == "__main__":
     main()
