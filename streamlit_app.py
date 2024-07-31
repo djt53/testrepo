@@ -20,10 +20,10 @@ def main():
             padding: 10px;
             margin: 5px;
         }
-        .green-button .stButton>button {
+        .stButton.green-button>button {
             background-color: #28a745;
         }
-        .red-button .stButton>button {
+        .stButton.red-button>button {
             background-color: #dc3545;
         }
         </style>
@@ -56,15 +56,41 @@ def main():
                 col2.button("👍", key=f"thumbs_up_{field}", disabled=True)
                 col3.button("👎", key=f"thumbs_down_{field}", disabled=True)
 
-            # Save and Pass buttons
+            # Save and Pass buttons with customized colors
             col1, col2 = st.columns(2)
             with col1:
-                if st.button("Save", key="save_button"):
+                if st.button("Save", key="save_button", args=(st.session_state.page + 1,)):
                     st.session_state.page += 1
 
             with col2:
-                if st.button("Pass", key="pass_button"):
+                if st.button("Pass", key="pass_button", args=(st.session_state.page + 1,)):
                     st.session_state.page += 1
+
+            # Custom styling for buttons
+            col1.markdown(
+                """
+                <style>
+                div.stButton > button:first-child {
+                    background-color: #28a745;
+                    color: white;
+                }
+                </style>
+                """, 
+                unsafe_allow_html=True
+            )
+
+            col2.markdown(
+                """
+                <style>
+                div.stButton > button:first-child {
+                    background-color: #dc3545;
+                    color: white;
+                }
+                </style>
+                """, 
+                unsafe_allow_html=True
+            )
+
         else:
             st.write("Nice. That's it for today.")
 
